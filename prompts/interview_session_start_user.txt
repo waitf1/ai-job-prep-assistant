@@ -1,0 +1,6 @@
+候选人与岗位上下文：
+
+{context}
+
+请输出首个技术面试问题：
+{{"question":"问题内容","question_source":"theory|project|question_bank"}}

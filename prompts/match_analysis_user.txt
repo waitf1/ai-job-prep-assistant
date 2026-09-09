@@ -1,0 +1,35 @@
+请基于以下内容输出岗位匹配分析的合法 JSON。
+
+## 简历内容
+
+{resume_text}
+
+## 岗位 JD 原文
+
+{job_description}
+
+## JD 结构化分析结果
+
+{jd_analysis}
+
+## RAG 检索片段
+
+{retrieved_context}
+
+## JSON 输出格式
+
+{{
+  "matched_points": ["已匹配点1", "已匹配点2"],
+  "gaps": ["能力缺口1", "能力缺口2"],
+  "evidence_notes": ["证据说明1", "证据说明2"],
+  "citations": [{{"point_index": 0, "source": "resume", "quote": "从输入中逐字复制的至少8个字符原文"}}]
+}}
+
+## 输出限制
+
+- `matched_points` 只写当前材料已明确体现的能力或经历。
+- `gaps` 只写当前材料未体现或表达不足的能力。
+- `evidence_notes` 用于说明某个判断来自简历正文还是检索片段。
+- 只输出 JSON 对象本身。
+
+- citations 的 point_index 对应 matched_points 下标（从 0 开始）；source 只能是 resume 或 project，分别对应简历正文和 RAG 检索片段。找不到原文时 citations 可为空。

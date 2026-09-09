@@ -1,0 +1,6 @@
+请逐一审核下面的候选片段，并返回每个片段的审核结果。
+
+{chunks}
+
+请仅输出 JSON：
+{{"reviews":[{{"index":0,"content_type":"project|method|result|body|toc|reference|acknowledgement|declaration|noise|other","keep":true,"reason":"简短理由","confidence":0.0}}]}}

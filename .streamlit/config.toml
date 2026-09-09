@@ -1,0 +1,13 @@
+[server]
+# `sentence-transformers` 会间接导入 `transformers`，而 Streamlit 的文件监听器
+# 在扫描这些第三方模块时会触发大量可选视觉依赖（如 `torchvision`）的噪音日志。
+# 关闭文件监听可避免终端在建库/检索时刷出无关报错信息。
+fileWatcherType = "none"
+
+[theme]
+base = "light"
+primaryColor = "#7860D5"
+backgroundColor = "#F7F8FC"
+secondaryBackgroundColor = "#F0F2F8"
+textColor = "#263244"
+font = "sans serif"

@@ -1,0 +1,18 @@
+请审核下面的候选片段。
+
+章节：
+{section_title}
+
+规则初步分类：
+{content_type}
+
+片段原文：
+{chunk_text}
+
+请返回：
+{{
+  "content_type": "project|method|result|body|toc|reference|acknowledgement|declaration|noise|other",
+  "keep": true,
+  "reason": "简短理由",
+  "confidence": 0.0
+}}

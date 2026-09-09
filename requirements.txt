@@ -1,0 +1,9 @@
+streamlit>=1.62,<2
+python-dotenv
+pymupdf
+python-docx
+chromadb
+sentence-transformers
+langchain==0.2.15
+langchain-openai==0.1.22
+langchain-community==0.2.15

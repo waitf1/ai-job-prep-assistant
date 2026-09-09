@@ -1,0 +1,30 @@
+请基于以下内容输出面试准备结果的合法 JSON。
+
+## 岗位 JD 结构化分析结果
+
+{jd_analysis}
+
+## 匹配分析结果
+
+{match_analysis}
+
+## 简历内容
+
+{resume_text}
+
+## RAG 检索片段
+
+{retrieved_context}
+
+## JSON 输出格式
+
+{{
+  "questions": ["面试问题1", "面试问题2"],
+  "short_term_focus": ["短期补强建议1", "短期补强建议2"]
+}}
+
+## 输出限制
+
+- `questions` 输出 6-10 条优先级较高的问题。
+- `short_term_focus` 输出 3-6 条近期最值得补强的方向。
+- 只输出 JSON 对象本身。

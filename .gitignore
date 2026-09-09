@@ -1,0 +1,33 @@
+# Credentials (only the sanitized template is public)
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+*.pem
+*.key
+# Environments and generated files
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+*.log
+.tmp/
+.local/
+# All personal documents, vectors, saved analyses and interviews
+/data/
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*
+# Private development material and third-party reference code
+/记录.md
+/分析结果.txt
+/启动.txt
+/参考项目/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

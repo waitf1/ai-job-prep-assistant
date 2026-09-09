@@ -1,0 +1,18 @@
+候选人与岗位上下文：
+
+{context}
+
+已完成面试记录：
+{history}
+
+当前为第 {round_number} 轮。
+问题：{question}
+题目来源：{question_source}
+
+候选人回答：
+{answer}
+
+是否需要继续生成下一题：{should_generate_next_question}
+
+请仅输出 JSON：
+{{"score":0,"strengths":[],"improvements":[],"answer_structure":[],"overall_feedback":"简短整体反馈","next_question":"下一题或空字符串","next_question_source":"theory|project|question_bank"}}

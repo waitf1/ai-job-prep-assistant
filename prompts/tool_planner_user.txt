@@ -1,0 +1,33 @@
+请判断在已经提供完整简历的情况下，是否还需要调用项目资料库检索工具补充实现证据。
+
+## 当前模式
+
+{mode_name}
+
+## 当前使用的完整简历与补充说明
+
+{resume_text}
+
+## 岗位 JD 原文
+
+{job_description}
+
+## JD 结构化分析结果
+
+{jd_analysis}
+
+## 当前资料库状态
+
+{knowledge_base_status}
+
+## 可用工具
+
+- `search_project_knowledge_base(query)`
+
+## 要求
+
+- 如果需要项目报告中的更多实现细节或项目证据，请调用该工具。
+- 如果不需要，请返回合法 JSON：
+  {{"use_search": false, "reason": "简短原因"}}
+- 不要输出 Markdown。
+- 不要输出额外解释。

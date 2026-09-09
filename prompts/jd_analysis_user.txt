@@ -1,0 +1,21 @@
+请解析以下岗位 JD，并输出合法 JSON。
+
+## 岗位 JD
+
+{job_description}
+
+## JSON 输出格式
+
+{{
+  "responsibilities": ["岗位职责1", "岗位职责2"],
+  "required_skills": ["必备技能1", "必备技能2"],
+  "bonus_points": ["加分项1", "加分项2"],
+  "ai_keywords": ["关键词1", "关键词2"],
+  "interview_focus": ["面试关注点1", "面试关注点2"]
+}}
+
+## 输出限制
+
+- 只输出 JSON 对象本身。
+- 不要输出 Markdown。
+- 不要添加任何前后说明。

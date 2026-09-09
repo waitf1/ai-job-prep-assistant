@@ -1,0 +1,9 @@
+候选人与岗位上下文：
+
+{context}
+
+已完成面试记录：
+{history}
+
+请仅输出 JSON：
+{{"strengths":[],"weaknesses":[],"answer_structure_advice":[],"practice_plan":[],"overall_summary":"整体总结"}}
