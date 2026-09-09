@@ -27,6 +27,9 @@ __pycache__/
 /分析结果.txt
 /启动.txt
 /参考项目/
+# Personal development notes and local-only tests
+/docs/
+/tests/
 .vscode/
 .idea/
 .DS_Store

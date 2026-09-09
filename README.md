@@ -2,7 +2,7 @@
 
 基于个人资料库的求职辅助应用：上传简历、输入岗位 JD，获取能力匹配、简历建议与面试准备内容，再进行多轮模拟面试并保存复盘。
 
-采用 Python + Streamlit，结合 OpenAI 兼容接口、RAG、固定工作流和模型驱动工具调用。定位为可本地运行的个人学习与作品展示项目，尚未进行大规模用户效果验证。
+采用 Python + Streamlit，结合 OpenAI 兼容接口、RAG、固定工作流和模型驱动工具调用。定位为可本地运行的学习与作品展示项目，尚未进行大规模用户效果验证。
 
 ## 功能
 
@@ -31,13 +31,15 @@ flowchart LR
 1. **Python 3.11**：当前开发测试版本，建议使用独立虚拟环境。
 2. **模型 API**：准备 OpenAI 兼容服务的 Base URL、API Key 和可调用模型名。可用已配置渠道的 OneAPI／OneAI，也可直接用兼容托管接口；不强制自行部署网关。
 3. **网络和额度**：安装依赖、首次下载嵌入模型需要网络；大模型调用可能收费，需有效额度。
-4. **测试资料**：自行准备简历与岗位 JD，仓库不提供作者真实资料或密钥。
+4. **演示资料**：准备一份用于演示的简历和岗位 JD；仓库不包含真实个人资料或密钥。
 
 RAG 默认嵌入模型是 `BAAI/bge-small-zh-v1.5`，在本机运行；首次建库／检索可能下载并加载模型。普通岗位分析适合先验证 API 配置。模型驱动检索使用工具调用，模型和服务应支持相应接口。
 
-## Windows PowerShell 启动
+## Windows 启动（PowerShell、CMD 或 Git Bash）
 
-GitHub 点击 **Code → Download ZIP** 解压，或通过 Git 克隆。在能看到 README.md、app 的项目根目录打开 PowerShell：
+PowerShell 只是下面示例使用的终端，Windows 也可以使用 CMD 或 Git Bash。先在 GitHub 点击 **Code → Download ZIP** 解压，或通过 Git 克隆，然后在能看到 `README.md`、`app` 的项目根目录打开终端。
+
+### PowerShell
 
 ```powershell
 py -3.11 -m venv .venv
@@ -46,9 +48,45 @@ py -3.11 -m venv .venv
 Copy-Item .env.example .env
 ```
 
-复制配置仅在首次执行；已有 `.env` 时不要覆盖。若没有 `py`，确认 `python --version` 是 3.11 后用 `python -m venv .venv`。
+`py -3.11 -m venv .venv` 创建名为 `.venv` 的独立 Python 环境；后面三条使用这个环境的 Python 安装依赖，并复制一份配置模板。已有 `.env` 时不要再次复制覆盖。若没有 `py`，确认 `python --version` 是 3.11 后把第一条换成 `python -m venv .venv`。
 
-编辑 `.env`，替换以下占位符：
+也可以先激活环境，再使用更短的 `python` 命令：
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+`.\.venv\Scripts\Activate.ps1` 只对当前 PowerShell 窗口生效；关闭窗口后需重新激活。如果 PowerShell 因执行策略拒绝激活，可直接使用上一个代码块中的 `.\.venv\Scripts\python.exe`，不需要修改系统执行策略。
+
+### CMD（命令提示符）
+
+CMD 中安装依赖的命令与 PowerShell 基本相同，但复制文件使用 `copy`：
+
+```bat
+py -3.11 -m venv .venv
+.venv\Scripts\python.exe -m pip install --upgrade pip
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+copy .env.example .env
+```
+
+`copy .env.example .env` 将无密钥模板复制成本地配置文件；如果系统询问是否覆盖，已有配置时选择否。
+
+### Git Bash
+
+Git Bash 也可以运行 Windows 虚拟环境中的 Python：
+
+```bash
+py -3.11 -m venv .venv
+./.venv/Scripts/python.exe -m pip install --upgrade pip
+./.venv/Scripts/python.exe -m pip install -r requirements.txt
+cp .env.example .env
+```
+
+`cp` 是 Git Bash 的复制命令。如果 `py` 不可用，确认 `python --version` 为 3.11 后使用 `python -m venv .venv`。三种终端最终使用的是同一个 `.venv`，不要混用其他 Python 环境。
+
+三种终端都完成安装后，编辑 `.env`，替换以下占位符：
 
 ```dotenv
 LLM_BASE_URL=https://your-provider.example/v1
@@ -62,11 +100,33 @@ LLM_MAX_INPUT_CHARS=100000
 
 Base URL 是模型 API 地址，不是控制台网页或 Streamlit 页面。按供应商说明填写，通常以 `/v1` 结尾，不重复追加 `/chat/completions`。占位域名不能实际调用。超时针对单次请求，含重试时总耗时可能更长；输入预算按字符计算，不是 token。
 
+### 启动应用
+
+PowerShell（未激活环境时）：
+
 ```powershell
 .\.venv\Scripts\python.exe -m streamlit run app/main.py
 ```
 
-打开终端给出的地址，通常为 `http://localhost:8501`。按 `Ctrl+C` 停止。项目关闭了文件监听，修改代码后需重新启动。
+如果已执行 `Activate.ps1`，也可以用：
+
+```powershell
+python -m streamlit run app/main.py
+```
+
+CMD：
+
+```bat
+.venv\Scripts\python.exe -m streamlit run app\main.py
+```
+
+Git Bash：
+
+```bash
+./.venv/Scripts/python.exe -m streamlit run app/main.py
+```
+
+启动后打开终端给出的地址，通常为 `http://localhost:8501`。按 `Ctrl+C` 停止。项目关闭了文件监听，修改代码后需重新启动。
 
 macOS／Linux 可用 `python3.11 -m venv .venv`，将后续解释器路径替换为 `.venv/bin/python`；这些平台尚未单独验证。
 
@@ -85,7 +145,7 @@ macOS／Linux 可用 `python3.11 -m venv .venv`，将后续解释器路径替换
 - `.env` 和整个 `data/` 被 Git 忽略；`.env.example` 只有占位配置。
 - **本地存储不等于完全离线**：分析、面试和 AI 入库复核会向配置的模型服务发送相关简历、JD、项目片段或回答。请确认有权使用资料，并了解服务商的数据政策。
 - 历史仍可能包含敏感 JD、项目证据、回答与生成内容。分享日志、截图或导出文件前应检查。
-- 当前没有账号隔离、访问认证或存储加密，适合个人本地使用。
+- 当前没有账号隔离、访问认证或存储加密，适合单机本地使用。
 
 ## 代码结构和技术栈
 
@@ -100,22 +160,14 @@ app/
   storage/      # SQLite 历史与快照
   ui/           # 页面组件和样式
 prompts/        # 任务提示词
-tests/          # 自动化测试
-docs/           # 报告和阶段文档
 .streamlit/     # 主题与服务配置
 ```
 
 使用 Streamlit、LangChain / langchain-openai、Chroma、Sentence Transformers、SQLite、PyMuPDF、python-docx 和 python-dotenv。项目接入外部大模型，没有训练自己的语言模型。
 
-## 测试与边界
+## 当前边界
 
-```powershell
-.\.venv\Scripts\python.exe -m unittest discover -s tests -p "test_*.py" -v
-```
-
-测试覆盖面试状态、输入约束、历史快照、工具调用、检索和 UI 等，多数使用模型替身、合成输入和临时存储。通过测试不代表模型效果达到某个准确率。
-
-目前仅有限个人资料验证，没有多用户评测、检索消融结论或生产并发验证。依赖未全部锁定，未完成独立干净环境安装验收。长面试发给模型的历史会限长，总结在较多轮数时抽样摘录，并非全量逐字审阅。
+项目目前尚未完成多用户和大规模数据验证，没有检索消融结论或生产并发验证。依赖未全部锁定，未完成独立干净环境安装验收。长面试发给模型的历史会限长，总结在较多轮数时抽样摘录，并非全量逐字审阅。
 
 ## 排查问题
 
@@ -125,14 +177,3 @@ docs/           # 报告和阶段文档
 - PDF 没有文字：扫描件需要自行转为文本，当前未集成 OCR。
 - 找不到模块：使用同一虚拟环境解释器安装和启动。
 - 修改页面没生效：重启 Streamlit。
-
-GitHub 托管代码，不会因为上传仓库就自动运行应用；GitHub Pages 不能直接执行这个 Streamlit 服务。
-
-## 文档
-
-- [项目报告](docs/project_report.md)
-- [新手学习指南](docs/project_learning_guide.md)
-- [工程质量与边界](docs/stage_10_engineering.md)
-- [首次上传 GitHub 教程](docs/github_upload_guide.md)
-
-阶段文档保留演进记录，当前使用方式以本 README 和实际代码为准。项目使用 AI 辅助开发，展示时应如实说明个人的需求、设计、验证与学习过程。
